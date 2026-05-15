@@ -54,6 +54,5 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     // Messages
     Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
-    Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.delete');
 
 });

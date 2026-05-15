@@ -49,13 +49,4 @@ class MessageController extends Controller
         return back()->with('success', 'Message status updated!');
     }
 
-    // ============================================
-    // DELETE /admin/messages/{id} — Delete message (admin)
-    // ============================================
-    public function destroy($id)
-    {
-        Message::findOrFail($id)->delete();
-
-        return back()->with('success', 'Message deleted!');
-    }
 }

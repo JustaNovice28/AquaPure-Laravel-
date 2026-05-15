@@ -259,20 +259,7 @@
                                                         </form>
                                                     </div>
 
-                                                    {{-- Delete message --}}
-                                                    <div class="col-md-6 d-flex justify-content-end align-items-center">
-                                                        <form
-                                                            action="{{ route('admin.messages.delete', $msg->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Delete this message?')"
-                                                        >
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                                🗑️ Delete Message
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                        
                                                 </div>
                                             </div>
                                         </div>
