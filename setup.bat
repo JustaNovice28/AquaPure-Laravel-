@@ -49,7 +49,7 @@ if not exist .env (
     echo ℹ️ Pre-existing .env detected. Personal file preserved without modifications.
 )
 
-:: ── PHASE 4: RE-LINKING DATABASE SCHEMAS ────────────────────
+:: ── PHASE 4: RE-LINKING DATABASE SCHEMAS ^& SEEDERS ────────────
 echo 🗄️ Phase 4: Syncing Database Instances...
 set "MYSQL_BIN=mysql"
 if exist "C:\xampp\mysql\bin\mysql.exe" set "MYSQL_BIN=C:\xampp\mysql\bin\mysql"
@@ -64,7 +64,8 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-call php artisan migrate
+:: Runs migrations and appends the database seed records automatically
+call php artisan migrate --seed
 
 :: ── PHASE 5: ASSET COMPILATION VIA VITE ──────────────────────
 echo 🛠️ Phase 5: Compiling Static UI Core Layout Assets...
