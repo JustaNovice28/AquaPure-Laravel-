@@ -85,6 +85,21 @@ class DatabaseSeeder extends Seeder
                 'notes' => null,
                 'created_at' => Carbon::now()->subHours(6),
                 'updated_at' => Carbon::now()->subHours(3),
+            ],
+            [
+                'customer_name' => 'Ana Lopez',
+                'phone' => '09221234567',
+                'address' => 'Kauswagan, CDO',
+                'gallons' => 5,
+                'order_type' => 'delivery',
+                'price_per_gallon' => 25.00,
+                'total_price' => 125.00,
+                'status' => 'completed',
+                'delivery_date' => Carbon::now()->subDays(1)->format('Y-m-d'),
+                'delivery_time' => '2:00 PM - 4:00 PM',
+                'notes' => 'Thank you for the prompt delivery!',
+                'created_at' => Carbon::now()->subDays(2),
+                'updated_at' => Carbon::now()->subDays(1),
             ]
         ];
 
