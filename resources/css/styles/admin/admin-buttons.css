@@ -1,0 +1,234 @@
+/* ============================================
+   BADGES & STATUS
+   ============================================ */
+.badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================
+   STATUS DROPDOWN & BUTTONS
+   ============================================ */
+.status-btn {
+  min-width: 140px;
+  font-weight: 600;
+  text-transform: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.status-btn::after {
+  margin-left: 8px;
+}
+
+.status-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.status-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: linear-gradient(135deg, #218838 0%, #1baa83 100%);
+  border-color: transparent;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+  border-color: transparent;
+  color: #212529;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e0a800 0%, #e6a200 100%);
+  border-color: transparent;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #17a2b8 0%, #00bcd4 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+  background: linear-gradient(135deg, #138496 0%, #00acc1 100%);
+  border-color: transparent;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #f44336 100%);
+  border-color: transparent;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c82333 0%, #e53935 100%);
+  border-color: transparent;
+}
+
+.dropdown-menu {
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 160px;
+  padding: 8px;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+  color: #495057;
+  border-radius: 8px;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f7ff;
+  color: #0d6efd;
+  padding-left: 20px;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #ffe5e5;
+  color: #dc3545;
+}
+
+.dropdown-item:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dropdown-divider {
+  margin: 8px 0;
+}
+
+/* ============================================
+   TABS NAVIGATION
+   ============================================ */
+.orders-section.mb-3 {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 20px !important;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 0;
+  background: white;
+  padding: 0;
+  gap: 0;
+}
+
+.nav-item {
+  margin-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+  color: #495057 !important;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #0d6efd !important;
+  border-bottom-color: #0d6efd;
+  background: transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: #0d6efd !important;
+  border-bottom-color: #0d6efd;
+  background: transparent;
+  box-shadow: none;
+  border-top: none;
+  font-weight: 700;
+}
+
+.nav-tabs .nav-link i {
+  font-size: 1.1rem;
+}
+
+.nav-tabs .badge {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  background-color: #dc3545;
+  border-radius: 20px;
+}
+
+/* ============================================
+   BUTTONS STYLE OVERRIDE
+   ============================================ */
+.btn-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0098da 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0b5ed7 0%, #0089c7 100%);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  border: 2px solid #dee2e6;
+  color: #495057;
+  border-radius: 10px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+  color: #212529;
+}
+
+.btn-sm {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}

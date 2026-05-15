@@ -1,0 +1,95 @@
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+
+/* Tablets and below */
+@media (max-width: 991.98px) {
+  .about-visual { 
+    min-height: 280px; 
+    margin-bottom: 30px; 
+  }
+
+  .about-image-box { 
+    width: 220px; 
+    height: 220px; 
+  }
+
+  .about-icon-big { 
+    font-size: 5rem; 
+  }
+
+  .floating-badge { 
+    display: none; 
+  }
+
+  .contact-form-box { 
+    padding: 24px 20px; 
+  }
+
+  .order-type-card,
+  .subscription-cta-card,
+  .order-summary-card {
+    margin-bottom: 12px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 767.98px) {
+  .section-padding { 
+    padding: 60px 0; 
+  }
+
+  .hero-section { 
+    padding: 120px 0 60px; 
+  }
+
+  .hero-stats .stat-card { 
+    padding: 14px 8px; 
+  }
+
+  .stat-number { 
+    font-size: 1.7rem; 
+  }
+
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+
+  .table-row td {
+    padding: 10px;
+  }
+
+  input[type="date"],
+  select[name="deliveryTime"] {
+    font-size: 0.9rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 575.98px) {
+  .hero-title { 
+    font-size: 1.8rem; 
+  }
+
+  .feature-card { 
+    padding: 24px 18px; 
+  }
+
+  .contact-form-box { 
+    padding: 20px 16px; 
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .stat-content h3 {
+    font-size: 1.5rem;
+  }
+}

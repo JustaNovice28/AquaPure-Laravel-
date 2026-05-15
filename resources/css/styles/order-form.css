@@ -1,0 +1,150 @@
+/* ============================================================
+   ORDER FORM STYLES
+   ============================================================ */
+
+/* Order Type Selection Cards */
+.order-type-card {
+  background: #fff;
+  border: 2px solid #e9ecef;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.order-type-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.active-order-type {
+  border-color: var(--primary) !important;
+  background: var(--primary-light) !important;
+  box-shadow: 0 0 0 3px rgba(26, 111, 196, 0.15);
+}
+
+.order-type-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary-light);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.delivery-icon {
+  background: #e8f8ef;
+  color: #198754;
+}
+
+.order-type-price {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* Subscription CTA Card */
+.subscription-cta-card {
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+  border: 2px dashed #f0a500;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+}
+
+.subscription-icon {
+  background: #fff3cd !important;
+  color: #f0a500 !important;
+}
+
+/* Order Summary Card */
+.order-summary-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Gallon Counter Buttons */
+.input-group .btn-outline-primary {
+  border-color: #dee2e6;
+  color: var(--primary);
+  padding: 8px 16px;
+  font-size: 1.1rem;
+}
+
+.input-group .btn-outline-primary:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Suki Promo Styles */
+.suki-promo-card {
+  background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+  border: 2px dashed #f0a500;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.suki-promo-card i {
+  font-size: 1.3rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.suki-discount-badge {
+  background: #e8f8ef;
+  color: #198754;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+/* Date input styling */
+input[type="date"] {
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* Time select dropdown */
+select[name="deliveryTime"] option {
+  padding: 8px;
+  font-size: 0.95rem;
+}
+
+/* Order confirmation details */
+.order-confirmation-details {
+  background: rgba(25, 135, 84, 0.05);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 8px;
+}
+
+.order-confirmation-details p {
+  font-size: 0.92rem;
+}
+
+/* Sunday warning alert */
+.alert-warning {
+  font-size: 0.88rem;
+}

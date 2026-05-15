@@ -1,0 +1,112 @@
+/* ============================================
+   PRINT STYLES (reports & receipts)
+   ============================================ 
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #report-printable,
+  #report-printable *,
+  #receipt-printable,
+  #receipt-printable * {
+    visibility: visible !important;
+  }
+
+  #report-printable,
+  #receipt-printable {
+    position: static !important;
+    width: 100% !important;
+    padding: 1cm !important;
+    margin: 0 !important;
+    float: none !important;
+    min-height: unset !important;
+  }
+
+  .admin-stat-card,
+  .receipt-card {
+    break-inside: avoid;
+  }
+
+  .btn,
+  .btn-group,
+  .nav-tabs,
+  .admin-navbar,
+  .receipt-footer .btn,
+  .receipt-close-btn {
+    display: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+}
+*/
+
+/* ============================================
+   PRINT STYLES (reports & receipts)
+   ============================================ */
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only the printable container */
+  #report-printable,
+  #report-printable *,
+  #receipt-printable,
+  #receipt-printable * {
+    visibility: visible !important;
+  }
+
+  /* Anchor the container to the top-left, remove all inherited spacing */
+  #report-printable,
+  #receipt-printable {
+    position: absolute !important;       /* take out of flow, no ancestor spacing */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0.5cm !important;        /* comfortable padding for content */
+    background: white !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    min-height: unset !important;
+  }
+
+  /* Prevent card/page breaks inside stat cards */
+  .admin-stat-card,
+  .receipt-card {
+    break-inside: avoid;
+  }
+
+  /* Hide interactive elements */
+  .btn,
+  .btn-group,
+  .nav-tabs,
+  .admin-navbar,
+  .receipt-footer .btn,
+  .receipt-close-btn {
+    display: none !important;
+  }
+
+  /* Force zero margin/padding on body and common wrapper elements */
+  body,
+  html,
+  .admin-content,
+  .container-fluid,
+  .orders-section {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Page size & margins */
+  @page {
+    size: A4;
+    margin: 0.5cm;                    /* small page margin – adjust if needed */
+  }
+}

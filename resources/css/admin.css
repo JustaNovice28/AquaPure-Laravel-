@@ -1,0 +1,8 @@
+@import "./styles/variables.css";
+@import "./styles/global.css";
+@import "./styles/admin/admin-base.css";
+@import "./styles/admin/admin-navbar.css";
+@import "./styles/admin/admin-cards.css";
+@import "./styles/admin/admin-table.css";
+@import "./styles/admin/admin-buttons.css";
+@import "./styles/admin/admin-print.css";

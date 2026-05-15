@@ -1,0 +1,135 @@
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--dark);
+  padding: 70px 0 0;
+}
+
+.footer-desc {
+  color: rgba(255,255,255,.55);
+  font-size: .88rem;
+  line-height: 1.8;
+}
+
+.footer-socials { 
+  display: flex; 
+  gap: 10px; 
+}
+
+.footer-socials a {
+  width: 36px; 
+  height: 36px;
+  background: rgba(255,255,255,.08);
+  border-radius: 8px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  color: rgba(255,255,255,.7);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+
+.footer-socials a:hover { 
+  background: var(--primary); 
+  color: #fff; 
+}
+
+.footer-heading {
+  color: #fff;
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: 16px;
+  letter-spacing: .5px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li { 
+  margin-bottom: 8px; 
+}
+
+.footer-links a {
+  color: rgba(255,255,255,.55);
+  text-decoration: none;
+  font-size: .88rem;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover { 
+  color: #4fc3f7; 
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact li {
+  display: flex; 
+  align-items: flex-start; 
+  gap: 10px;
+  color: rgba(255,255,255,.55);
+  font-size: .88rem;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.footer-contact li i { 
+  color: var(--primary); 
+  flex-shrink: 0; 
+  margin-top: 2px; 
+}
+
+.footer-divider {
+  border-color: rgba(255,255,255,.1);
+  margin: 40px 0 0;
+}
+
+.footer-bottom {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255,255,255,.4);
+  font-size: .82rem;
+  margin: 2px 0;
+}
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px; 
+  right: 30px;
+  width: 44px; 
+  height: 44px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  opacity: 0; 
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition);
+  box-shadow: 0 4px 16px rgba(26,111,196,.4);
+  z-index: 999;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+}

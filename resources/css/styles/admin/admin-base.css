@@ -1,0 +1,221 @@
+/* ============================================
+   ADMIN LOGIN
+   ============================================ */
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0d6efd 0%, #0098da 50%, #00b4d8 100%);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.admin-login-box {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-login-header i {
+  font-size: 3rem;
+  color: #0d6efd;
+  display: block;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 4px rgba(13, 110, 253, 0.2));
+}
+
+.admin-login-header h2 {
+  font-size: 1.8rem;
+  color: #212529;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.admin-login-header p {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.admin-input {
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+  padding: 12px 16px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.admin-input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+  background: white;
+}
+
+.admin-login-back-link {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.admin-login-back-link:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+/* ============================================
+   ADMIN DASHBOARD HEADER (old – kept for legacy)
+   ============================================ */
+.admin-header {
+  background: linear-gradient(135deg, #0d6efd 0%, #0098da 100%);
+  color: white;
+  border-bottom: none;
+  margin-bottom: 30px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(13, 110, 253, 0.3);
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.admin-header .text-muted {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ============================================
+   ADMIN CONTENT
+   ============================================ */
+.admin-content {
+  padding: 20px 0;
+  min-height: calc(100vh - 200px);
+  background: #f8f9fa;
+}
+
+.orders-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.orders-section h5 {
+  color: #212529;
+  font-weight: 700;
+}
+
+.orders-section .btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .admin-header {
+    margin-bottom: 20px;
+  }
+  .admin-header h1 {
+    font-size: 1.5rem;
+  }
+  .admin-header .d-flex {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .admin-stat-card {
+    padding: 16px;
+  }
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    border-radius: 12px;
+  }
+  .stat-content h3 {
+    font-size: 1.5rem;
+  }
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+  .table-row td {
+    padding: 12px;
+  }
+}
+
+/* ============================================
+   ADMIN MODAL OVERLAY
+   ============================================ */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #f8f9fa;
+  z-index: 9999;
+  overflow-y: auto;
+}
+
+.keystroke-indicator {
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+body.admin-open {
+  overflow: hidden;
+}
+
+/* ============================================
+   LINK & TYPOGRAPHY HELPERS
+   ============================================ */
+.text-primary {
+  color: #0d6efd !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.small, small {
+  font-size: 0.875rem;
+}

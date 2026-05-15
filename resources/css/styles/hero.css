@@ -1,0 +1,111 @@
+.hero-section {
+  min-height: 100vh;
+  position: relative;
+  background:
+    url('../../images/photo-1548839140-29a749e1cf4d.jpg')
+    center center / cover no-repeat;
+  padding: 180px 0 80px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-overlay {
+  position: absolute; 
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 40, 90, 0.82) 0%,
+    rgba(26, 111, 196, 0.70) 100%
+  );
+}
+
+.hero-location {
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,.9);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.price-highlight {
+  color: #ffd54f;
+  background: rgba(255,255,255,.08);
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+.hero-subtitle {
+  font-size: clamp(.95rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,.82);
+  line-height: 1.8;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.btn-messenger {
+  background: linear-gradient(135deg, #0084ff, #a033ff);
+  color: #fff !important;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: .95rem;
+  transition: background var(--transition), 
+              transform var(--transition), 
+              box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(0, 132, 255, 0.35);
+}
+
+.btn-messenger:hover {
+  background: linear-gradient(135deg, #006edb, #8a1fe0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 132, 255, 0.50);
+  color: #fff !important;
+}
+
+/* Hero Stats */
+.hero-stats { 
+  margin-top: 60px; 
+}
+
+.stat-card {
+  background: rgba(255,255,255,.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--radius);
+  padding: 20px 10px;
+  color: #fff;
+  margin: 8px;
+  transition: transform var(--transition);
+}
+
+.stat-card:hover { 
+  transform: translateY(-4px); 
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffd54f;
+}
+
+.stat-plus {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffd54f;
+}
+
+.stat-card p {
+  font-size: .82rem;
+  margin: 4px 0 0;
+  color: rgba(255,255,255,.8);
+}

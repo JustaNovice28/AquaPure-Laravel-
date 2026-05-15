@@ -1,0 +1,107 @@
+/* ============================================
+   ORDERS TABLE
+   ============================================ */
+.admin-table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  margin-top: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.admin-table {
+  margin-bottom: 0;
+}
+
+.table-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.table-row {
+  border-bottom: 1px solid #f1f3f5;
+  transition: background 0.2s ease;
+}
+
+.table-row:hover {
+  background: #f8f9ff;
+}
+
+.table-row td {
+  vertical-align: middle;
+  padding: 16px;
+}
+
+.table-responsive {
+  overflow: visible !important;
+}
+
+/* ============================================
+   ORDER DETAILS (EXPANDED)
+   ============================================ */
+.order-details-expanded {
+  border-radius: 12px;
+  border-left: 4px solid #0d6efd;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.order-details-expanded h6 {
+  color: #212529;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.order-details-expanded p {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.order-details-expanded strong {
+  color: #212529;
+}
+
+/* ============================================
+   TYPE FILTER in table header
+   ============================================ */
+.type-filter-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.type-filter-btn:hover {
+  color: #0d6efd;
+}
+
+.type-filter-selected {
+  font-weight: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+
+.type-filter-chevron {
+  font-size: 0.65rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  color: inherit;
+}
+
+.type-filter-btn:hover .type-filter-chevron {
+  opacity: 1;
+}

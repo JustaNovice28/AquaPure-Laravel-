@@ -1,0 +1,52 @@
+.receipt-card {
+  position: relative;               /* so the close button positions inside the card */
+  background: white;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.receipt-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border: none;
+  color: #555;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.receipt-close-btn:hover {
+  background: #f5f5f5;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.receipt-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.receipt-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
