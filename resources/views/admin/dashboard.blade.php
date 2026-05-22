@@ -297,137 +297,139 @@
 
         {{-- ===== REPORTS TAB ===== --}}
         @if($activeTab === 'reports')
-        <div class="orders-section">
-            {{-- Filter bar --}}
-            <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
-                <h5 class="fw-bold mb-0 me-auto">
-                    <i class="bi bi-bar-chart-fill me-2"></i>Sales Reports
-                </h5>
-                <div class="btn-group">
-                    @foreach(['all', 'daily', 'weekly', 'monthly', 'custom'] as $p)
-                        <a href="{{ route('admin.dashboard', array_merge(request()->except('period'), ['tab' => 'reports', 'period' => $p])) }}"
-                           class="btn btn-sm {{ $period === $p ? 'btn-primary' : 'btn-outline-secondary' }}">
-                            {{ ucfirst($p) }}
-                        </a>
-                    @endforeach
+        <div id="report-printable">
+            <div class="orders-section">
+                {{-- Filter bar --}}
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+                    <h5 class="fw-bold mb-0 me-auto">
+                        <i class="bi bi-bar-chart-fill me-2"></i>Sales Reports
+                    </h5>
+                    <div class="btn-group">
+                        @foreach(['all', 'daily', 'weekly', 'monthly', 'custom'] as $p)
+                            <a href="{{ route('admin.dashboard', array_merge(request()->except('period'), ['tab' => 'reports', 'period' => $p])) }}"
+                            class="btn btn-sm {{ $period === $p ? 'btn-primary' : 'btn-outline-secondary' }}">
+                                {{ ucfirst($p) }}
+                            </a>
+                        @endforeach
+                    </div>
+                    @if($period === 'custom')
+                        <form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex gap-2 align-items-center">
+                            <input type="hidden" name="tab" value="reports">
+                            <input type="hidden" name="period" value="custom">
+                            <input type="date" name="start" class="form-control form-control-sm"
+                                value="{{ $start ?? '' }}" required>
+                            <span>to</span>
+                            <input type="date" name="end" class="form-control form-control-sm"
+                                value="{{ $end ?? '' }}" required>
+                            <button type="submit" class="btn btn-sm btn-success">Generate</button>
+                        </form>
+                    @endif
+                    <button class="btn btn-sm btn-outline-primary no-print" onclick="printReport()">
+                        <i class="bi bi-printer me-1"></i> Print
+                    </button>
                 </div>
-                @if($period === 'custom')
-                    <form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex gap-2 align-items-center">
-                        <input type="hidden" name="tab" value="reports">
-                        <input type="hidden" name="period" value="custom">
-                        <input type="date" name="start" class="form-control form-control-sm"
-                               value="{{ $start ?? '' }}" required>
-                        <span>to</span>
-                        <input type="date" name="end" class="form-control form-control-sm"
-                               value="{{ $end ?? '' }}" required>
-                        <button type="submit" class="btn btn-sm btn-success">Generate</button>
-                    </form>
-                @endif
-                <button class="btn btn-sm btn-outline-primary" onclick="window.print()">
-                    <i class="bi bi-printer me-1"></i> Print
-                </button>
-            </div>
 
-            {{-- Stat Cards --}}
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-md-3">
-                    <div class="admin-stat-card">
-                        <div class="stat-icon bg-primary"><i class="bi bi-receipt"></i></div>
-                        <div class="stat-content">
-                            <h6 class="text-muted">Total Orders</h6>
-                            <h3>{{ $reportStats['totalOrders'] }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="admin-stat-card">
-                        <div class="stat-icon bg-success"><i class="bi bi-cash-coin"></i></div>
-                        <div class="stat-content">
-                            <h6 class="text-muted">Total Revenue</h6>
-                            <h3>₱{{ number_format($reportStats['totalRevenue'], 2) }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="admin-stat-card">
-                        <div class="stat-icon bg-info"><i class="bi bi-droplet-fill"></i></div>
-                        <div class="stat-content">
-                            <h6 class="text-muted">Total Gallons</h6>
-                            <h3>{{ $reportStats['totalGallons'] }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="admin-stat-card">
-                        <div class="stat-icon bg-warning"><i class="bi bi-graph-up"></i></div>
-                        <div class="stat-content">
-                            <h6 class="text-muted">Avg. Order Value</h6>
-                            <h3>₱{{ number_format($reportStats['avgOrderValue'], 2) }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Order Type Breakdown --}}
-            <div class="mb-4">
-                <h6 class="fw-bold">Order Type Breakdown</h6>
-                <div class="row g-2">
-                    @forelse($reportBreakdown as $b)
-                        <div class="col-md-6">
-                            <div class="d-flex justify-content-between bg-light p-2 rounded">
-                                <span class="fw-semibold">{{ ucfirst($b->order_type) }}</span>
-                                <span>{{ $b->count }} orders — ₱{{ number_format($b->revenue, 2) }}</span>
+                {{-- Stat Cards --}}
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-3">
+                        <div class="admin-stat-card">
+                            <div class="stat-icon bg-primary"><i class="bi bi-receipt"></i></div>
+                            <div class="stat-content">
+                                <h6 class="text-muted">Total Orders</h6>
+                                <h3>{{ $reportStats['totalOrders'] }}</h3>
                             </div>
                         </div>
-                    @empty
-                        <p class="text-muted">No data for this period.</p>
-                    @endforelse
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="admin-stat-card">
+                            <div class="stat-icon bg-success"><i class="bi bi-cash-coin"></i></div>
+                            <div class="stat-content">
+                                <h6 class="text-muted">Total Revenue</h6>
+                                <h3>₱{{ number_format($reportStats['totalRevenue'], 2) }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="admin-stat-card">
+                            <div class="stat-icon bg-info"><i class="bi bi-droplet-fill"></i></div>
+                            <div class="stat-content">
+                                <h6 class="text-muted">Total Gallons</h6>
+                                <h3>{{ $reportStats['totalGallons'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="admin-stat-card">
+                            <div class="stat-icon bg-warning"><i class="bi bi-graph-up"></i></div>
+                            <div class="stat-content">
+                                <h6 class="text-muted">Avg. Order Value</h6>
+                                <h3>₱{{ number_format($reportStats['avgOrderValue'], 2) }}</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            {{-- Orders Table --}}
-            <h6 class="fw-bold mb-2">Orders in this period</h6>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Customer</th>
-                            <th>Type</th>
-                            <th>Gallons</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($reportOrders as $ro)
-                            <tr>
-                                <td>{{ $ro->id }}</td>
-                                <td>{{ $ro->customer_name ?: '—' }}</td>
-                                <td>{{ ucfirst($ro->order_type) }}</td>
-                                <td>{{ $ro->gallons }}</td>
-                                <td>₱{{ number_format($ro->total_price, 2) }}</td>
-                                <td><span class="badge bg-secondary">{{ ucfirst($ro->status) }}</span></td>
-                                <td>{{ $ro->created_at->format('M d, Y') }}</td>
-                            </tr>
+                {{-- Order Type Breakdown --}}
+                <div class="mb-4">
+                    <h6 class="fw-bold">Order Type Breakdown</h6>
+                    <div class="row g-2">
+                        @forelse($reportBreakdown as $b)
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-between bg-light p-2 rounded">
+                                    <span class="fw-semibold">{{ ucfirst($b->order_type) }}</span>
+                                    <span>{{ $b->count }} orders — ₱{{ number_format($b->revenue, 2) }}</span>
+                                </div>
+                            </div>
                         @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted py-4">No orders found.</td>
-                            </tr>
+                            <p class="text-muted">No data for this period.</p>
                         @endforelse
-                    </tbody>
-                    @if($reportOrders->count() > 0)
-                    <tfoot class="table-light">
-                        <tr>
-                            <td colspan="3" class="fw-bold text-end">Totals:</td>
-                            <td class="fw-bold">{{ $reportStats['totalGallons'] }} gal</td>
-                            <td class="fw-bold">₱{{ number_format($reportStats['totalRevenue'], 2) }}</td>
-                            <td colspan="2"></td>
-                        </tr>
-                    </tfoot>
-                    @endif
-                </table>
+                    </div>
+                </div>
+
+                {{-- Orders Table --}}
+                <h6 class="fw-bold mb-2">Orders in this period</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Type</th>
+                                <th>Gallons</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($reportOrders as $ro)
+                                <tr>
+                                    <td>{{ $ro->id }}</td>
+                                    <td>{{ $ro->customer_name ?: '—' }}</td>
+                                    <td>{{ ucfirst($ro->order_type) }}</td>
+                                    <td>{{ $ro->gallons }}</td>
+                                    <td>₱{{ number_format($ro->total_price, 2) }}</td>
+                                    <td><span class="badge bg-secondary">{{ ucfirst($ro->status) }}</span></td>
+                                    <td>{{ $ro->created_at->format('M d, Y') }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted py-4">No orders found.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        @if($reportOrders->count() > 0)
+                        <tfoot class="table-light">
+                            <tr>
+                                <td colspan="3" class="fw-bold text-end">Totals:</td>
+                                <td class="fw-bold">{{ $reportStats['totalGallons'] }} gal</td>
+                                <td class="fw-bold">₱{{ number_format($reportStats['totalRevenue'], 2) }}</td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tfoot>
+                        @endif
+                    </table>
+                </div>
             </div>
         </div>
         @endif
@@ -488,4 +490,46 @@
     </div>
 </div>
 
+<script>
+function printReport() {
+    // ✅ Now matches id="report-printable"
+    const printContent = document.getElementById('report-printable').innerHTML;
+
+    const win = window.open('', '_blank', 'width=900,height=700');
+    win.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>AquaPure — Sales Report</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+            <style>
+                body { padding: 20px; font-family: sans-serif; }
+                .no-print { display: none !important; }
+                .btn, .btn-group { display: none !important; }
+                .admin-stat-card {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 12px;
+                    border: 1px solid #dee2e6;
+                    border-radius: 8px;
+                    margin-bottom: 8px;
+                }
+                @page { size: A4; margin: 1cm; }
+            </style>
+        </head>
+        <body>
+            ${printContent}
+            <script>
+                window.onload = function() {
+                    window.print();
+                    setTimeout(() => window.close(), 500);
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+    win.document.close();
+}
+</script>
 @endsection
