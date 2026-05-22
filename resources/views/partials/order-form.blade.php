@@ -36,7 +36,7 @@
                             <small class="text-muted">Bring your gallon to our station</small>
                         </div>
                         <div class="ms-auto text-end">
-                            <span class="order-type-price">₱25</span>
+                            <span class="order-type-price">₱{{ number_format($settings['base_price'], 0) }}</span>
                             <small class="text-muted d-block">/gallon</small>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <small class="text-muted">We deliver to your door</small>
                         </div>
                         <div class="ms-auto text-end">
-                            <span class="order-type-price">₱30</span>
+                            <span class="order-type-price">₱{{ number_format($settings['delivery_small_price'], 0) }}</span>
                             <small class="text-muted d-block">/gallon</small>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                     <div>
                         <h6 class="fw-bold mb-1">Suki Promo!</h6>
                         <p class="mb-0" style="font-size:0.85rem">
-                            Order <strong>5 or more gallons</strong> and get
-                            delivery at <strong>walk-in price (₱25/gallon)</strong>!
+                            Order <strong>{{ $settings['bulk_threshold'] }} or more gallons</strong> and get
+                            delivery at <strong>walk-in price (₱{{ number_format($settings['base_price'], 0) }}/gallon)</strong>!
                         </p>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span class="text-muted">Price/gallon:</span>
-                        <span class="fw-semibold" id="summaryPPG">₱30</span>
+                        <span class="fw-semibold" id="summaryPPG">₱{{ number_format($settings['delivery_small_price'], 0) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2 d-none" id="summaryDateRow">
                         <span class="text-muted">Date:</span>
@@ -105,7 +105,7 @@
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold">Total:</span>
                         <span class="fw-bold text-primary" style="font-size:1.3rem" id="summaryTotal">
-                            ₱30.00
+                            ₱{{ number_format($settings['delivery_small_price'], 2) }}
                         </span>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                                 <div class="w-100 p-3 bg-light rounded text-center">
                                     <small class="text-muted d-block">Total</small>
                                     <span class="fw-bold text-primary" style="font-size:1.5rem"
-                                          id="mobileTotal">₱30.00</span>
+                                          id="mobileTotal">₱{{ number_format($settings['delivery_small_price'], 2) }}</span>
                                     <small class="text-success d-block fw-semibold d-none"
                                            id="freeDeliveryNote">✓ FREE delivery applied!</small>
                                 </div>
@@ -264,7 +264,7 @@
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary-custom w-100 py-3">
                                     <i class="bi bi-cart-check-fill me-2"></i>
-                                    Place Order — <span id="btnTotal">₱30.00</span>
+                                    Place Order — <span id="btnTotal">₱{{ number_format($settings['delivery_small_price'], 2) }}</span>
                                 </button>
                             </div>
 
@@ -278,6 +278,9 @@
 
 @push('scripts')
 <script>
+    const priceBase = {{ $settings['base_price'] }};
+    const priceSmall = {{ $settings['delivery_small_price'] }};
+    const bulkThreshold = {{ $settings['bulk_threshold'] }};
     let orderType = 'delivery';
     let gallons   = 1;
 
@@ -348,9 +351,14 @@
     // ── Price calculation ────────────────────────────────────────────
     function calculatePrice() {
         gallons = parseInt(document.getElementById('gallonsInput').value) || 1;
-        if (orderType === 'walk-in') return { ppg: 25, total: gallons * 25 };
-        if (gallons >= 5)            return { ppg: 25, total: gallons * 25 };
-        return { ppg: 30, total: gallons * 30 };
+        if (orderType === 'walk-in') {
+            return { ppg: priceBase, total: gallons * priceBase };
+        } 
+        if (gallons >= bulkThreshold) {
+            return { ppg: priceBase, total: gallons * priceBase };
+        } else {
+            return { ppg: priceSmall, total: gallons * priceSmall };
+        }
     }
 
     // ── Update all summary elements ──────────────────────────────────
@@ -358,9 +366,9 @@
         gallons = parseInt(document.getElementById('gallonsInput').value) || 1;
         const { ppg, total } = calculatePrice();
         const totalStr = '₱' + total.toFixed(2);
-        const isSuki   = orderType === 'delivery' && gallons >= 5;
-        const hint     = orderType === 'delivery' && gallons < 5
-            ? `💡 Add ${5 - gallons} more gallon${5 - gallons > 1 ? 's' : ''} for FREE delivery!`
+        const isSuki   = orderType === 'delivery' && gallons >= bulkThreshold;
+        const hint     = orderType === 'delivery' && gallons < bulkThreshold
+            ? `💡 Add ${bulkThreshold - gallons} more gallon${bulkThreshold - gallons > 1 ? 's' : ''} for FREE delivery!`
             : '';
 
         document.getElementById('summaryType').textContent =

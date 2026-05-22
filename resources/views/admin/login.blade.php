@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login — AquaPure</title>
+    <title>Login — AquaPure</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @vite(['resources/css/admin.css'])
@@ -17,8 +17,8 @@
             <div class="logo-icon-large">
                 <i class="bi bi-droplet-fill"></i>
             </div>
-            <h2>AquaPure Admin</h2>
-            <p>Staff Only Access</p>
+            <h2>AquaPure Panel</h2>
+            <p>Admin & Cashier Login</p>
         </div>
 
         {{-- Error flash from controller --}}
@@ -37,16 +37,31 @@
         <form action="{{ route('admin.login.post') }}" method="POST">
             @csrf
 
+            {{-- Username --}}
             <div class="mb-3">
-                <label class="form-label fw-semibold">Admin Password</label>
+                <label class="form-label fw-semibold" for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-control admin-input"
+                    placeholder="Enter your username"
+                    value="{{ old('username') }}"
+                    autofocus
+                    required
+                >
+            </div>
+
+            {{-- Password --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold" for="password">Password</label>
                 <div class="position-relative">
                     <input
                         type="password"
                         id="password"
                         name="password"
                         class="form-control admin-input pe-5"
-                        placeholder="Enter admin password"
-                        autofocus
+                        placeholder="Enter your password"
                         required
                     >
                     <button
@@ -66,14 +81,14 @@
                 class="btn btn-primary w-100 py-3"
                 style="border-radius: 12px; font-weight: 600;"
             >
-                <i class="bi bi-unlock-fill me-2"></i>Access Dashboard
+                <i class="bi bi-unlock-fill me-2"></i>Log In
             </button>
         </form>
 
         <hr class="my-4">
 
         <small class="text-muted d-block text-center">
-            <i class="bi bi-shield-check text-info me-1"></i>Authorized staff only.
+            <i class="bi bi-shield-check text-info me-1"></i>Authorized personnel only.
         </small>
 
         <div class="text-center mt-3">

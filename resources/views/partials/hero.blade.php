@@ -10,7 +10,7 @@
 
         <h1 class="hero-title animate-fade delay-1">
             Unlimited Pure, Mineralized<br>
-            Water for <span class="price-highlight">₱25 pesos</span><br>
+            Water for <span class="price-highlight">₱{{ number_format($settings['base_price'], 0) }} pesos</span><br>
             When Refilling
         </h1>
 
@@ -25,9 +25,9 @@
                target="_blank" rel="noopener noreferrer">
                 <i class="bi bi-messenger me-2"></i>Chat To Start
             </a>
-            <a href="#about"
+            <a href="#services"
                class="btn btn-outline-light btn-lg px-4"
-               onclick="event.preventDefault(); scrollToSection('about')">
+               onclick="event.preventDefault(); scrollToSection('services')">
                 Learn More <i class="bi bi-arrow-down ms-1"></i>
             </a>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Dashboard — AquaPure')
+@section('title', 'Dashboard — AquaPure')
 
 @section('content')
 
@@ -16,13 +16,18 @@
             </span>
         </div>
         <div class="d-flex align-items-center gap-2">
+            {{-- User info --}}
+            <span class="text-white small me-2">
+                <i class="bi bi-person-circle me-1"></i>
+                {{ $user->username }} ({{ ucfirst($user->role) }})
+            </span>
             <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
                 <i class="bi bi-arrow-clockwise me-1"></i> Refresh
             </a>
             <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-warning btn-sm rounded-pill px-3">
-                    <i class="bi bi-box-arrow-right me-1"></i> Exit Admin
+                    <i class="bi bi-box-arrow-right me-1"></i> Exit
                 </button>
             </form>
         </div>
@@ -49,7 +54,6 @@
 
         {{-- ===== STATS ===== --}}
         @php
-            // $orderTypes is a Collection of objects with order_type, count, revenue
             $walkIn   = $orderTypes->firstWhere('order_type', 'walk-in');
             $delivery = $orderTypes->firstWhere('order_type', 'delivery');
         @endphp
@@ -145,12 +149,28 @@
                         <i class="bi bi-bar-chart-line me-2"></i>Reports
                     </a>
                 </li>
+
+                {{-- Admin-only tabs --}}
+                @if($user->isAdmin())
+                <li class="nav-item">
+                    <a class="nav-link {{ $activeTab === 'pricing' ? 'active' : '' }}"
+                       href="{{ route('admin.dashboard', ['tab' => 'pricing']) }}">
+                        <i class="bi bi-currency-dollar me-2"></i>Pricing
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $activeTab === 'logs' ? 'active' : '' }}"
                        href="{{ route('admin.dashboard', ['tab' => 'logs']) }}">
-                        <i class="bi bi-journal-text me-2"></i>Audit Logs
+                        <i class="bi bi-journal-text me-2"></i>Activity Logs
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $activeTab === 'users' ? 'active' : '' }}"
+                       href="{{ route('admin.dashboard', ['tab' => 'users']) }}">
+                        <i class="bi bi-people-fill me-2"></i>Add User
+                    </a>
+                </li>
+                @endif
             </ul>
         </div>
 
@@ -158,7 +178,6 @@
         @if($activeTab === 'orders')
             @include('partials._orders-table')
         @endif
-        {{-- /ORDERS TAB --}}
 
         {{-- ===== MESSAGES TAB ===== --}}
         @if($activeTab === 'messages')
@@ -258,8 +277,6 @@
                                                             </button>
                                                         </form>
                                                     </div>
-
-                        
                                                 </div>
                                             </div>
                                         </div>
@@ -281,35 +298,31 @@
         {{-- ===== REPORTS TAB ===== --}}
         @if($activeTab === 'reports')
         <div class="orders-section">
-
             {{-- Filter bar --}}
             <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
                 <h5 class="fw-bold mb-0 me-auto">
                     <i class="bi bi-bar-chart-fill me-2"></i>Sales Reports
                 </h5>
-
                 <div class="btn-group">
                     @foreach(['all', 'daily', 'weekly', 'monthly', 'custom'] as $p)
                         <a href="{{ route('admin.dashboard', array_merge(request()->except('period'), ['tab' => 'reports', 'period' => $p])) }}"
-                        class="btn btn-sm {{ $period === $p ? 'btn-primary' : 'btn-outline-secondary' }}">
+                           class="btn btn-sm {{ $period === $p ? 'btn-primary' : 'btn-outline-secondary' }}">
                             {{ ucfirst($p) }}
                         </a>
                     @endforeach
                 </div>
-
                 @if($period === 'custom')
                     <form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex gap-2 align-items-center">
                         <input type="hidden" name="tab" value="reports">
                         <input type="hidden" name="period" value="custom">
                         <input type="date" name="start" class="form-control form-control-sm"
-                            value="{{ $start ?? '' }}" required>
+                               value="{{ $start ?? '' }}" required>
                         <span>to</span>
                         <input type="date" name="end" class="form-control form-control-sm"
-                            value="{{ $end ?? '' }}" required>
+                               value="{{ $end ?? '' }}" required>
                         <button type="submit" class="btn btn-sm btn-success">Generate</button>
                     </form>
                 @endif
-
                 <button class="btn btn-sm btn-outline-primary" onclick="window.print()">
                     <i class="bi bi-printer me-1"></i> Print
                 </button>
@@ -420,8 +433,8 @@
         @endif
         {{-- /REPORTS TAB --}}
 
-        {{-- ===== ACTIVITY LOG TAB ===== --}}
-        @if($activeTab === 'logs')
+        {{-- ===== ACTIVITY LOGS TAB (admin only) ===== --}}
+        @if($activeTab === 'logs' && $user->isAdmin())
         <div class="orders-section">
             <h5 class="fw-bold mb-3">
                 <i class="bi bi-journal-text me-2"></i>Activity Log
@@ -434,7 +447,7 @@
                                 <th>#</th>
                                 <th>ACTION</th>
                                 <th>DESCRIPTION</th>
-                                <th>ADMIN</th>
+                                <th>USER</th>
                                 <th>DATE</th>
                             </tr>
                         </thead>
@@ -449,7 +462,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-4">No audit logs yet.</td>
+                                    <td colspan="5" class="text-center text-muted py-4">No activity logs yet.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -458,7 +471,19 @@
             </div>
         </div>
         @endif
-        {{-- /AUDIT LOGS TAB --}}
+        {{-- /ACTIVITY LOGS TAB --}}
+
+        {{-- ===== PRICING TAB (admin only) ===== --}}
+        @if($activeTab === 'pricing' && $user->isAdmin())
+            @include('partials._pricing-form')
+        @endif
+        {{-- /PRICING TAB --}}
+
+        {{-- ===== USERS TAB (admin only) ===== --}}
+        @if($activeTab === 'users' && $user->isAdmin())
+            @include('partials._add-user-form', ['cashiers' => $cashiers])
+        @endif
+        {{-- /USERS TAB --}}
 
     </div>
 </div>

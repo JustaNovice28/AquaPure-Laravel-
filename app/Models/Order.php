@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'customer_name',
         'phone',
@@ -18,6 +20,7 @@ class Order extends Model
         'delivery_date',
         'delivery_time',
         'notes',
+
     ];
 
     protected $casts = [
@@ -25,5 +28,6 @@ class Order extends Model
         'price_per_gallon' => 'decimal:2',
         'total_price'      => 'decimal:2',
         'gallons'          => 'integer',
+        'deleted_at'        => 'datetime',
     ];
 }

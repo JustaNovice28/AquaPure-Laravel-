@@ -4,14 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MessageController;
+use App\Models\Setting;
 
 // ============================================
 // PUBLIC ROUTES — Customer Facing
 // ============================================
 
-// Home (Hero, About, Services, Features, Team, Contact all in one page)
-Route::get('/', function () {
-    return view('home');
+Route::get('/', function() {
+    $settings = [
+        'base_price' => Setting::getValue('base_price_per_gallon', 25.00),
+        'delivery_small_price' => Setting::getValue('delivery_small_order_price', 30.00),
+        'bulk_threshold' => (int) Setting::getValue('delivery_bulk_threshold', 5.00),
+    ];
+    return view('home', compact('settings'));
 })->name('home');
 
 // Order form
@@ -32,27 +37,35 @@ Route::get('/receipt/{id}', function ($id) {
 Route::post('/contact', [MessageController::class, 'store'])->name('contact.store');
 
 // ============================================
-// ADMIN AUTH ROUTES — No middleware
+// AUTH ROUTES — No middleware
 // ============================================
-
 Route::get('/admin/login', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 // ============================================
-// ADMIN PROTECTED ROUTES — Requires admin session
+// PROTECTED ROUTES — Requires auth.user middleware
 // ============================================
+Route::middleware('auth.user')->prefix('admin')->name('admin.')->group(function () {
 
-Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
-
-    // Dashboard
+    // Dashboard (both roles)
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    // Orders
+    // Orders (both)
     Route::put('/orders/{id}', [AdminController::class, 'updateOrder'])->name('orders.update');
     Route::delete('/orders/{id}', [AdminController::class, 'deleteOrder'])->name('orders.delete');
 
-    // Messages
+    // Messages (both)
     Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
 
+    // Admin-only routes
+    Route::middleware('role:admin')->group(function () {
+        // Pricing
+        Route::post('/pricing', [AdminController::class, 'updatePricing'])->name('pricing.update');
+
+        // User management
+        Route::get('/users', [AdminController::class, 'showUsers'])->name('users');
+        Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+        Route::delete('/users/{id}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    });
 });

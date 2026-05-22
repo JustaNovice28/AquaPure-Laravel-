@@ -10,35 +10,39 @@
 
         {{-- Service Cards --}}
         <div class="row g-4 mb-5">
-            @foreach([
-                [
-                    'icon' => 'bi-droplet-fill',
-                    'title' => 'Walk-In Refill',
-                    'desc' => 'Bring your own gallon container to our station and get it refilled with pure, mineralized water.',
-                    'price' => '₱25',
-                    'unit' => '/ gallon',
-                    'popular' => false,
-                    'highlights' => ['Bring your own container', 'Refill while you wait', 'Open Mon-Sat 6AM-8PM'],
-                ],
-                [
-                    'icon' => 'bi-truck',
-                    'title' => 'Home Delivery',
-                    'desc' => 'Order by call, text, or Messenger and we deliver clean water straight to your doorstep.',
-                    'price' => '₱30',
-                    'unit' => '/ gallon (delivered)',
-                    'popular' => true,
-                    'highlights' => ['Delivered to your door', 'Same-day delivery available', 'Covers Barra & nearby areas'],
-                ],
-                [
-                    'icon' => 'bi-people-fill',
-                    'title' => 'Suki / Bulk Orders',
-                    'desc' => 'Regular customer? Order 5 or more gallons and enjoy free delivery with our suki price.',
-                    'price' => '₱25',
-                    'unit' => '/ gallon (5+ gallons, FREE delivery)',
-                    'popular' => false,
-                    'highlights' => ['Free delivery for 5+ gallons', 'Same low walk-in price', 'Priority service for regulars'],
-                ],
-            ] as $service)
+            @php
+                $services = [
+                    [
+                        'icon'       => 'bi-droplet-fill',
+                        'title'      => 'Walk-In Refill',
+                        'desc'       => 'Bring your own gallon container to our station and get it refilled with pure, mineralized water.',
+                        'price'      => '₱' . number_format($settings['base_price'], 0),
+                        'unit'       => '/ gallon',
+                        'popular'    => false,
+                        'highlights' => ['Bring your own container', 'Refill while you wait', 'Open Mon-Sat 6AM-8PM'],
+                    ],
+                    [
+                        'icon'       => 'bi-truck',
+                        'title'      => 'Home Delivery',
+                        'desc'       => 'Order by call, text, or Messenger and we deliver clean water straight to your doorstep.',
+                        'price'      => '₱' . number_format($settings['delivery_small_price'], 0),
+                        'unit'       => '/ gallon (delivered)',
+                        'popular'    => true,
+                        'highlights' => ['Delivered to your door', 'Same-day delivery available', 'Covers Barra & nearby areas'],
+                    ],
+                    [
+                        'icon'       => 'bi-people-fill',
+                        'title'      => 'Suki / Bulk Orders',
+                        'desc'       => 'Regular customer? Order ' . $settings['bulk_threshold'] . ' or more gallons and enjoy free delivery with our suki price.',
+                        'price'      => '₱' . number_format($settings['base_price'], 0),
+                        'unit'       => '/ gallon (' . $settings['bulk_threshold'] . '+ gallons, FREE delivery)',
+                        'popular'    => false,
+                        'highlights' => ['Free delivery for ' . $settings['bulk_threshold'] . '+ gallons', 'Same low walk-in price', 'Priority service for regulars'],
+                    ],
+                ];
+            @endphp
+
+            @foreach($services as $service)
             <div class="col-md-4">
                 <div class="service-card text-center h-100 {{ $service['popular'] ? 'featured-service' : '' }}">
                     @if($service['popular'])
@@ -69,7 +73,7 @@
             @endforeach
         </div>
 
-        {{-- FAQ --}}
+        {{-- FAQ (unchanged) --}}
         <h4 class="text-center fw-bold mb-4">Frequently Asked Questions</h4>
         <div class="row justify-content-center">
             <div class="col-lg-8">

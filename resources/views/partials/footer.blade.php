@@ -36,7 +36,7 @@
             <div class="col-md-2 offset-md-1">
                 <h6 class="footer-heading">Quick Links</h6>
                 <ul class="footer-links">
-                    @foreach(['home','about','features','services','order','team','contact'] as $link)
+                    @foreach(['home', 'services', 'order', 'contact'] as $link)
                     <li>
                         <a href="#{{ $link }}"
                            onclick="event.preventDefault(); scrollToSection('{{ $link }}')">

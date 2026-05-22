@@ -20,7 +20,7 @@
         {{-- Nav Links --}}
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-                @foreach(['home','about','features','services','order','team','contact'] as $item)
+                @foreach(['home', 'services', 'order', 'contact'] as $item)
                 <li class="nav-item">
                     <a class="nav-link {{ $item === 'home' ? 'active' : '' }}"
                        href="#{{ $item }}"

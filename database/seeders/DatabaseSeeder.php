@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\Order;
 use App\Models\Message;
 use App\Models\AuditLog;
+use App\Models\User;
 use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
@@ -23,10 +24,20 @@ class DatabaseSeeder extends Seeder
         DB::table('messages')->truncate();
         DB::table('orders')->truncate();
         DB::table('audit_logs')->truncate();
+        DB::table('settings')->truncate();
         
         Schema::enableForeignKeyConstraints();
 
         // ── 2. SEED CLEAN CUSTOMER MESSAGES ──────────────────────────────
+        $settings = [
+            ['key' => 'base_price_per_gallon', 'value' => 25.00],
+            ['key' => 'delivery_small_order_price', 'value' => 30.00],
+            ['key' => 'delivery_bulk_threshold', 'value' => 5.00],
+        ];
+
+        foreach ($settings as $setting) {
+            DB::table('settings')->insert($setting);    
+        }
         $messages = [
             [
                 'full_name' => 'Maria Santos',
@@ -120,5 +131,12 @@ class DatabaseSeeder extends Seeder
         foreach ($auditLogs as $log) {
             AuditLog::create($log);
         }
+
+        // --- 5. DEFAULT ADMIN USER ----
+        User::create([
+            'username' => 'admin',
+            'password' => env('ADMIN_PASSWORD'),
+            'role' => 'admin',
+        ]);
     }
 }

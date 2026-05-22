@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class OrderController extends Controller
 {
@@ -15,7 +16,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'gallons'    => 'required|integer|min:1',
-            'order_type' => 'required|in:walk-in,delivery,subscription',
+            'order_type' => 'required|in:walk-in,delivery',
         ]);
 
         $orderType = $request->order_type;
@@ -30,11 +31,15 @@ class OrderController extends Controller
         }
 
         // Calculate price
+        $basePrice = Setting::getValue('base_price_per_gallon', 25.00);
+        $deliverySmallPrice = Setting::getValue('delivery_small_order_price', 30.00);
+        $bulkThreshold = (int) Setting::getValue('delivery_bulk_threshold', 5);
+
         $gallons = $request->gallons;
         if ($orderType === 'delivery') {
-            $pricePerGallon = $gallons >= 5 ? 25 : 30;
+            $pricePerGallon = $gallons >= $bulkThreshold ? $basePrice : $deliverySmallPrice;
         } else {
-            $pricePerGallon = 25;
+            $pricePerGallon = $basePrice;
         }
 
         $totalPrice = $gallons * $pricePerGallon;
